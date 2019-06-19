@@ -6,3 +6,13 @@
 
 <h1>Courses</h1>
 
+<table>
+    @foreach (var course in Model.Courses)
+    {
+    <tr>
+        <td>@course.Id</td>
+        <td>@course.Name</td>
+        <td>@course.Author</td>
+    </tr>
+    }
+</table>
