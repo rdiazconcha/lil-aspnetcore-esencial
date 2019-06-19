@@ -32,6 +32,11 @@ namespace ListaCursos.Pages
         }
         public async Task<IActionResult> OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             var result = await coursesProvider.UpdateAsync(Course.Id, Course);
 
             if (result)

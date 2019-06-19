@@ -13,21 +13,25 @@
     <div class="form-group">
         <label asp-for="Course.Name"></label>
         <input asp-for="Course.Name" class="form-control" />
+        <span class="text-danger" asp-validation-for="Course.Name"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Course.Description"></label>
         <textarea asp-for="Course.Description" class="form-control"></textarea>
+        <span class="text-danger" asp-validation-for="Course.Description"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Course.Author"></label>
         <input asp-for="Course.Author" class="form-control" />
+        <span class="text-danger" asp-validation-for="Course.Author"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Course.Uri"></label>
         <input asp-for="Course.Uri" class="form-control" />
+        <span class="text-danger" asp-validation-for="Course.Uri"></span>
     </div>
 
     <button type="submit" class="btn btn-primary">Guardar</button>
