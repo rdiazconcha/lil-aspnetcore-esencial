@@ -15,6 +15,9 @@ namespace ListaCursos.Pages
 
         public List<Course> Courses { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string Search { get; set; }
+
         public CoursesModel(ICoursesProvider coursesProvider)
         {
             this.coursesProvider = coursesProvider;
@@ -22,10 +25,21 @@ namespace ListaCursos.Pages
 
         public async Task<IActionResult> OnGet()
         {
-            var results = await coursesProvider.GetAllAsync();
-            if (results != null)
+            if (!string.IsNullOrWhiteSpace(Search))
             {
-                Courses = new List<Course>(results);
+                var results = await coursesProvider.SearchAsync(Search);
+                if (results != null)
+                {
+                    Courses = new List<Course>(results);
+                }
+            }
+            else
+            {
+                var results = await coursesProvider.GetAllAsync();
+                if (results != null)
+                {
+                    Courses = new List<Course>(results);
+                }
             }
 
             return Page();

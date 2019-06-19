@@ -6,6 +6,18 @@
 
 <h1>Courses</h1>
 
+<form method="get">
+    <div class="form-group">
+        <div class="input-group">
+            <input type="search"
+                   class="form-control"
+                   asp-for="Search"
+                   />
+            <button class="btn btn-light">Buscar</button>
+        </div>
+    </div>
+</form>
+
 <table>
     @foreach (var course in Model.Courses)
     {
