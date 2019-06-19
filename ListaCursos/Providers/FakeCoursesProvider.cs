@@ -53,5 +53,21 @@ namespace ListaCursos.Providers
         {
             return Task.FromResult((ICollection<Course>)repo.Where(c=>c.Name.ToLowerInvariant().Contains(search.ToLowerInvariant())).ToList());
         }
+
+        public Task<bool> UpdateAsync(int id, Course course)
+        {
+            var courseToUpdate = repo.FirstOrDefault(c => c.Id == id);
+            if (courseToUpdate != null)
+            {
+                courseToUpdate.Name = course.Name;
+                courseToUpdate.Description = course.Description;
+                courseToUpdate.Author = course.Author;
+                courseToUpdate.Uri = course.Uri;
+
+                return Task.FromResult(true);
+            }
+
+            return Task.FromResult(false);
+        }
     }
 }
