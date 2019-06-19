@@ -20,13 +20,26 @@ namespace ListaCursos.Pages
         {
             this.coursesProvider = coursesProvider;
         }
-        public void OnGet()
+        public async Task<IActionResult> OnGet(int id)
         {
+            var course = await coursesProvider.GetAsync(id);
+            if (course != null)
+            {
+                Course = course;
+            }
 
+            return Page();
         }
-        public void OnPost()
+        public async Task<IActionResult> OnPost()
         {
-            //... coursesProvider....
+            var result = await coursesProvider.UpdateAsync(Course.Id, Course);
+
+            if (result)
+            {
+                return RedirectToPage("Courses");
+            }
+
+            return Page();
         }
     }
 }
