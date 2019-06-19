@@ -1,0 +1,13 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Message</h1>
+    @for (int i = 0; i < 10; i++)
+    {
+        <label>@i</label>
+    }
+</div>
