@@ -20,14 +20,20 @@ namespace ListaCursos.Pages
         {
             this.coursesProvider = coursesProvider;
         }
-        public async Task<IActionResult> OnGet(int id)
+        public async Task<IActionResult> OnGet(int? id)
         {
-            var course = await coursesProvider.GetAsync(id);
-            if (course != null)
+            if (id == null)
             {
-                Course = course;
+                Course = new Course();
             }
-
+            else
+            {
+                var course = await coursesProvider.GetAsync(id.Value);
+                if (course != null)
+                {
+                    Course = course;
+                }
+            }
             return Page();
         }
         public async Task<IActionResult> OnPost()
@@ -37,11 +43,25 @@ namespace ListaCursos.Pages
                 return Page();
             }
 
-            var result = await coursesProvider.UpdateAsync(Course.Id, Course);
-
-            if (result)
+            if (Course.Id == 0)
             {
-                return RedirectToPage("Courses");
+                var result = await coursesProvider.AddAsync(Course);
+
+                if (result.IsSuccess)
+                {
+                    return RedirectToPage("Courses");
+                }
+
+                return Page();
+            }
+            else
+            {
+                var result = await coursesProvider.UpdateAsync(Course.Id, Course);
+
+                if (result)
+                {
+                    return RedirectToPage("Courses");
+                }
             }
 
             return Page();
