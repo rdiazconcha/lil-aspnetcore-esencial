@@ -11,10 +11,15 @@ namespace WebApiCursos.Controllers
     [ApiController]
     public class CoursesController : ControllerBase
     {
-        [HttpGet]
-        public int Get()
+        [HttpGet("{number}")]
+        public IActionResult Get(int number)
         {
-            return 10;
+            if (number < 100)
+            {
+                return Ok(number);
+            }
+
+            return NotFound(number);
         }
     }
 }
